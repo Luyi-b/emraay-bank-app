@@ -23,8 +23,12 @@
         <!-- Header -->
         <header class="dashboard-header">
             <div class="header-left">
-                <div class="logo">
-                    <h1>🏦 Emraay Bank</h1>
+                <div class="logo-section">
+                    <img src="images/emraay-logo.jpeg" alt="Emraay Bank Logo" class="bank-logo">
+                    <div class="logo-text">
+                        <h1>Emraay Bank</h1>
+                        <span class="tagline">Banking Excellence</span>
+                    </div>
                 </div>
             </div>
             <div class="header-right">
@@ -34,6 +38,10 @@
                         <%= customer != null ? customer.getFirstName().charAt(0) + "" + customer.getLastName().charAt(0) : "U" %>
                     </div>
                 </div>
+                <a href="index.html" class="btn btn-outline btn-small">
+                    <span class="btn-icon">🏠</span>
+                    Home
+                </a>
                 <a href="login" class="logout-btn">Logout</a>
             </div>
         </header>

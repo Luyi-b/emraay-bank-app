@@ -415,6 +415,12 @@ body {
     justify-content: center;
 }
 
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+}
+
 /* Features Section */
 .features {
     padding: 4rem 0;
@@ -546,6 +552,37 @@ body {
     margin-bottom: 2rem;
 }
 
+.login-header .logo-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-header .bank-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-header .logo-text h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    color: #1e3a8a;
+}
+
+.login-header .tagline {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-top: -0.2rem;
+    display: block;
+}
+
 .login-header h2 {
     font-size: 2rem;
     font-weight: 700;
@@ -555,6 +592,11 @@ body {
 
 .login-header p {
     color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.home-link {
+    margin-top: 1rem;
 }
 
 /* Form Styles */
@@ -693,10 +735,40 @@ body {
     align-items: center;
 }
 
+.dashboard-header .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dashboard-header .bank-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header .logo-text h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: #1e3a8a;
+}
+
+.dashboard-header .tagline {
+    font-size: 0.7rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-top: -0.1rem;
+    display: block;
+}
+
 .header-right {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .user-info {

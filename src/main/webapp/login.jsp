@@ -11,11 +11,21 @@
 <body class="login-page">
     <div class="login-container">
         <div class="login-header">
-            <div class="logo">
-                <h1>🏦 Emraay Bank</h1>
+            <div class="logo-section">
+                <img src="images/emraay-logo.jpeg" alt="Emraay Bank Logo" class="bank-logo">
+                <div class="logo-text">
+                    <h1>Emraay Bank</h1>
+                    <span class="tagline">Banking Excellence</span>
+                </div>
             </div>
             <h2>Customer Portal Login</h2>
             <p>Secure access to your banking information</p>
+            <div class="home-link">
+                <a href="index.html" class="btn btn-outline btn-small">
+                    <span class="btn-icon">🏠</span>
+                    Return to Home
+                </a>
+            </div>
         </div>
 
         <div class="login-form-container">
