@@ -33,8 +33,6 @@ function initializeLoginPage() {
 }
 
 function handleLoginSubmit(e) {
-    e.preventDefault();
-    
     const form = e.target;
     const formData = new FormData(form);
     const username = formData.get('username');
@@ -42,30 +40,16 @@ function handleLoginSubmit(e) {
     
     // Validate form
     if (!validateLoginForm(username, password)) {
+        e.preventDefault();
         return;
     }
     
     // Show loading state
     const submitButton = form.querySelector('button[type="submit"]');
-    const removeLoadingState = addLoadingState(submitButton, 'Signing In...');
+    addLoadingState(submitButton, 'Signing In...');
     
-    // Simulate login process (in real app, this would be an AJAX call)
-    setTimeout(() => {
-        removeLoadingState();
-        
-        // Check credentials
-        if (username === 'william.lycee' && password === 'password123') {
-            showToast('Login successful! Redirecting...', 'success');
-            
-            // Redirect to dashboard
-            setTimeout(() => {
-                window.location.href = 'dashboard';
-            }, 1000);
-        } else {
-            showToast('Invalid username or password', 'error');
-            showLoginError('Invalid username or password');
-        }
-    }, 1500);
+    // Let the form submit naturally to the server
+    // The server will handle authentication and redirect
 }
 
 function validateLoginForm(username, password) {

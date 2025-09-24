@@ -184,7 +184,8 @@ emraay-bank-app/
 
 ### 1.1 Navigate to Project Directory
 ```bash
-cd /path/to/emraay-bank-app
+git clone https://github.com/emraay-devops/emraay-bank-app.git
+cd emraay-bank-app
 ```
 
 ### 1.2 Clean and Compile

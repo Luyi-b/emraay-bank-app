@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.emraay.bank.model.Customer" %>
+<%@ page import="com.emraay.bank.model.Transaction" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
+<%
+    Customer customer = (Customer) request.getAttribute("customer");
+    List<Transaction> transactions = (List<Transaction>) request.getAttribute("transactions");
+    NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +29,10 @@
             </div>
             <div class="header-right">
                 <div class="user-info">
-                    <span class="welcome-text">Welcome, ${customer.firstName}!</span>
-                    <div class="user-avatar">${customer.firstName.charAt(0)}${customer.lastName.charAt(0)}</div>
+                    <span class="welcome-text">Welcome, <%= customer != null ? customer.getFirstName() : "User" %>!</span>
+                    <div class="user-avatar">
+                        <%= customer != null ? customer.getFirstName().charAt(0) + "" + customer.getLastName().charAt(0) : "U" %>
+                    </div>
                 </div>
                 <a href="login" class="logout-btn">Logout</a>
             </div>
@@ -35,26 +45,26 @@
                 <div class="summary-card">
                     <div class="summary-header">
                         <h2>Account Summary</h2>
-                        <span class="account-number">Account: ${customer.accountNumber}</span>
+                        <span class="account-number">Account: <%= customer != null ? customer.getAccountNumber() : "N/A" %></span>
                     </div>
                     <div class="balance-display">
                         <div class="balance-label">Current Balance</div>
                         <div class="balance-amount">
-                            <fmt:formatNumber value="${customer.accountBalance}" type="currency" currencyCode="CAD"/>
+                            <%= customer != null ? currencyFormat.format(customer.getAccountBalance()) : "$0.00" %>
                         </div>
                     </div>
                     <div class="account-details">
                         <div class="detail-item">
                             <span class="detail-label">Account Holder:</span>
-                            <span class="detail-value">${customer.fullName}</span>
+                            <span class="detail-value"><%= customer != null ? customer.getFullName() : "N/A" %></span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Email:</span>
-                            <span class="detail-value">${customer.email}</span>
+                            <span class="detail-value"><%= customer != null ? customer.getEmail() : "N/A" %></span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Phone:</span>
-                            <span class="detail-value">${customer.phoneNumber}</span>
+                            <span class="detail-value"><%= customer != null ? customer.getPhoneNumber() : "N/A" %></span>
                         </div>
                     </div>
                 </div>
@@ -90,40 +100,40 @@
                     <a href="#" class="view-all-link">View All</a>
                 </div>
                 <div class="transactions-list">
-                    <c:forEach var="transaction" items="${transactions}" begin="0" end="5">
-                        <div class="transaction-item">
-                            <div class="transaction-icon">
-                                <c:choose>
-                                    <c:when test="${transaction.transactionType == 'CREDIT'}">
+                    <% if (transactions != null && !transactions.isEmpty()) { %>
+                        <% for (int i = 0; i < Math.min(transactions.size(), 6); i++) { %>
+                            <% Transaction transaction = transactions.get(i); %>
+                            <div class="transaction-item">
+                                <div class="transaction-icon">
+                                    <% if ("CREDIT".equals(transaction.getTransactionType())) { %>
                                         <span class="icon-credit">📈</span>
-                                    </c:when>
-                                    <c:when test="${transaction.transactionType == 'DEBIT'}">
+                                    <% } else if ("DEBIT".equals(transaction.getTransactionType())) { %>
                                         <span class="icon-debit">📉</span>
-                                    </c:when>
-                                    <c:otherwise>
+                                    <% } else { %>
                                         <span class="icon-transfer">🔄</span>
-                                    </c:otherwise>
-                                </c:choose>
+                                    <% } %>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="transaction-description"><%= transaction.getDescription() %></div>
+                                    <div class="transaction-date"><%= transaction.getFormattedDate() %></div>
+                                </div>
+                                <div class="transaction-amount">
+                                    <% if ("CREDIT".equals(transaction.getTransactionType())) { %>
+                                        <span class="amount-positive">+<%= currencyFormat.format(transaction.getAmount()) %></span>
+                                    <% } else { %>
+                                        <span class="amount-negative">-<%= currencyFormat.format(transaction.getAmount()) %></span>
+                                    <% } %>
+                                </div>
+                                <div class="transaction-status">
+                                    <span class="status-badge status-<%= transaction.getStatus().toLowerCase() %>"><%= transaction.getStatus() %></span>
+                                </div>
                             </div>
-                            <div class="transaction-details">
-                                <div class="transaction-description">${transaction.description}</div>
-                                <div class="transaction-date">${transaction.formattedDate}</div>
-                            </div>
-                            <div class="transaction-amount">
-                                <c:choose>
-                                    <c:when test="${transaction.transactionType == 'CREDIT'}">
-                                        <span class="amount-positive">+<fmt:formatNumber value="${transaction.amount}" type="currency" currencyCode="CAD"/></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="amount-negative">-<fmt:formatNumber value="${transaction.amount}" type="currency" currencyCode="CAD"/></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <div class="transaction-status">
-                                <span class="status-badge status-${transaction.status.toLowerCase()}">${transaction.status}</span>
-                            </div>
+                        <% } %>
+                    <% } else { %>
+                        <div class="no-transactions">
+                            <p>No recent transactions found.</p>
                         </div>
-                    </c:forEach>
+                    <% } %>
                 </div>
             </section>
 
