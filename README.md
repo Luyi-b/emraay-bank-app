@@ -1,5 +1,6 @@
 # Emraay Bank Application - Build, Deploy & Deployment Guide
 
+
 ## Overview
 This guide provides step-by-step instructions to build, package, and deploy the Emraay Bank Java web application. We'll start with a **student-friendly manual deployment approach** to help you understand the fundamentals, then progress to **professional artifact repository deployment** using Nexus.
 
